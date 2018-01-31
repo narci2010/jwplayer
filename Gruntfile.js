@@ -240,7 +240,6 @@ module.exports = function(grunt) {
     });
 
     grunt.registerTask('karma:local', [
-        'karma:chrome',
         'karma:headless'
     ]);
 

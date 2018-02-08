@@ -2,6 +2,7 @@ import _ from 'test/underscore';
 import Playlists from 'data/playlists';
 import Playlist, { filterPlaylist, validatePlaylist } from 'playlist/playlist';
 import Providers from 'providers/providers';
+import { Browser } from 'environment/environment';
 
 function sourcesMatch(playlistItems) {
     let type;
@@ -78,13 +79,15 @@ describe('playlist.filterPlaylist', function() {
                 }
             }
         };
+
+        // webm not supported in IE browserstack
         pl = filterPlaylist(Playlists.webm_mp4, model);
-        expect(pl[0].sources[0].type).to.equal('webm');
-        expect(pl[1].sources[0].type).to.equal('mp4');
+        expect(pl[0].sources[0].type, 'webm first & mp4 second').to.equal(Browser.ie ? 'mp4' : 'webm');
+        expect(pl[1].sources[0].type, 'webm first & mp4 second').to.equal('mp4');
 
         pl = filterPlaylist(Playlists.mp4_webm, model);
-        expect(pl[0].sources[0].type).to.equal('mp4');
-        expect(pl[1].sources[0].type).to.equal('webm');
+        expect(pl[0].sources[0].type, 'mp4 first & webm second').to.equal('mp4');
+        expect(pl[1].sources[0].type, 'mp4 first & webm second').to.equal(Browser.ie ? 'mp4' : 'webm');
 
         pl = filterPlaylist(Playlists.mp4_webm, model);
         expect(pl[0].sources[0].androidhls).to.equal(androidhls);

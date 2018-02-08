@@ -1,4 +1,5 @@
 import dfxp from 'parsers/captions/dfxp';
+import { Browser } from 'environment/environment';
 
 describe('dfxp', function() {
 
@@ -21,6 +22,12 @@ describe('dfxp', function() {
         expect(captions.length, 'Namespaced DXFP captions are parsed').to.equal(1);
         expect(captions[0].text.indexOf('schwarz') > -1, 'Text is parsed').to.be.true;
         expect(captions[0].text.indexOf('Abschnitt') > -1, 'Namespace prefixes are not removed from text content').to.be.true;
+
+        // IE does not remove namespace prefixes
+        if (Browser.ie) {
+            return;
+        }
+
         expect(captions[0].text.indexOf('<span') > -1, 'Namespace prefixes are removed from opening tags').to.be.true;
         expect(captions[0].text.indexOf('</span') > -1, 'Namespace prefixes are removed from closing tags').to.be.true;
     });

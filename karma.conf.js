@@ -10,6 +10,7 @@ const puppeteer = require('puppeteer');
 
 const aliases = {
     'test/underscore': path.resolve(__dirname + '/node_modules/underscore/underscore.js'),
+    'utils/video': path.resolve(__dirname + '/test/mock/video.js'),
     jquery: path.resolve(__dirname + '/node_modules/jquery/dist/jquery.js'),
     sinon: path.resolve(__dirname + '/node_modules/sinon/pkg/sinon.js'),
     data: path.resolve(__dirname + '/test/data'),

@@ -395,7 +395,7 @@ function VideoProvider(_playerId, _playerConfig, mediaElement) {
             });
             _currentQuality = -1;
             // Don't call load in iE9/10
-            if (!Browser.msie) {
+            if (!Browser.msie && 'load' in _videotag) {
                 _videotag.load();
             }
         }

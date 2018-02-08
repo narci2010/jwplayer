@@ -1,7 +1,6 @@
 import Providers, { Loaders } from 'providers/providers';
 import Source from 'playlist/source';
 import _ from 'underscore/underscore';
-import { Browser } from 'environment/environment';
 
 const getName = function getName(provider) {
     if (!provider) {
@@ -24,16 +23,13 @@ describe('Providers', function() {
             m4a: { file: 'http://content.bitsontherun.com/videos/nPripu9l-Q2YqwWcp.m4a', type: 'aac' },
             mp3: { file: 'http://content.bitsontherun.com/videos/yj1shGJB-ywAKK1m8.mp3' },
             aac: { file: 'http://content.bitsontherun.com/videos/3XnJSIm4-I3ZmuSFT.aac' },
+            ogg: { file: 'http://content.bitsontherun.com/videos/3XnJSIm4-364765.ogg' },
+            oga: { file: 'http://content.bitsontherun.com/videos/3XnJSIm4-rjiewRbX.oga' },
+            webm: { file: 'http://content.bitsontherun.com/videos/3XnJSIm4-27m5HpIu.webm' },
             mp4mp3: { file: 'http://content.bitsontherun.com/videos/nPripu9l-ywAKK1m8.mp4', type: 'mp3' },
         };
         const providers = new Providers();
         let provider;
-
-        if (!Browser.ie) {
-            htmlSources.ogg = { file: 'http://content.bitsontherun.com/videos/3XnJSIm4-364765.ogg' };
-            htmlSources.oga = { file: 'http://content.bitsontherun.com/videos/3XnJSIm4-rjiewRbX.oga' };
-            htmlSources.webm = { file: 'http://content.bitsontherun.com/videos/3XnJSIm4-27m5HpIu.webm' };
-        }
 
         _.each(htmlSources, (src, type) => {
             provider = providers.choose(Source(src));
@@ -42,7 +38,7 @@ describe('Providers', function() {
     });
 
     it('should not choose a provider for hls and dash streams', function() {
-        if (!Loaders || (Loaders.hlsjs || Loaders.shaka) || Browser.ie) {
+        if (!Loaders || (Loaders.hlsjs || Loaders.shaka)) {
             // Exit if Loaders were extended with hls and dash providers or is not exported in this project
             return;
         }

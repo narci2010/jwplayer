@@ -32,8 +32,9 @@ describe('API Config', function() {
         });
 
         describe('liveTimeout', function () {
-            it('should default liveTimeout to 30 if set between 1 and 10, or less than 0', function () {
+            it('should default liveTimeout to 30 if between 1 and 30', function () {
                 expect(new Config({ liveTimeout: 1 })).to.have.property('liveTimeout').which.equals(30);
+                expect(new Config({ liveTimeout: 29 })).to.have.property('liveTimeout').which.equals(30);
                 expect(new Config({ liveTimeout: -1 })).to.have.property('liveTimeout').which.equals(30);
             });
 
@@ -43,7 +44,7 @@ describe('API Config', function() {
 
             it('should not change a config value of null', function () {
                 expect(new Config({ liveTimeout: null })).to.have.property('liveTimeout').which.equals(null);
-            })
+            });
         });
     });
 
